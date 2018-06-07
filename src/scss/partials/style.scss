@@ -1,0 +1,22 @@
+/*mixin*/
+@import "base/mixin";
+@import 'base/normalize';
+@import 'base/fonts';
+@import "base/class";
+
+/*blocks vendors*/
+@import "vendors/bootstrap";
+@import "vendors/bootstrap-theme";
+@import "vendors/slick";
+@import "vendors/arcticmodal-0.3";
+
+/*blocks damutek*/
+@import "bloks/header";
+@import "bloks/nav";
+@import "bloks/slider";
+@import "bloks/about";
+@import "bloks/contacts";
+@import "bloks/feedback";
+@import "bloks/partners";
+@import "bloks/modal";
+@import "bloks/footer";
