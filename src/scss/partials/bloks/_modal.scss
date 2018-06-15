@@ -38,11 +38,11 @@
 		outline:none;
 	}
 	.modal-content{
-		background: #ce9256;
-		background: -moz-linear-gradient(45deg, #ce9256 0%, #cda267 100%);
-		background: -webkit-linear-gradient(45deg, #ce9256 0%,#cda267 100%);
-		background: linear-gradient(45deg, #ce9256 0%,#cda267 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce9256', endColorstr='#cda267',GradientType=1 );
+		background: #5e5e5e;
+		background: -moz-linear-gradient(45deg, #5e5e5e 0%, #2e2e2e 100%);
+		background: -webkit-linear-gradient(45deg, #5e5e5e 0%,#2e2e2e 100%);
+		background: linear-gradient(45deg, #5e5e5e 0%,#2e2e2e 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e5e5e', endColorstr='#2e2e2e',GradientType=1 );
 		position: relative;
 		&:before{
 			content: '';
