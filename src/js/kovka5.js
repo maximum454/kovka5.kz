@@ -31,7 +31,7 @@ $(function () {
         $('body,html').animate({scrollTop: top - 50}, 1500);
     });
 
-    $('.js-about').slick({
+    $('.js-now').slick({
         autoplay: false,
         dots: false,
         arrows: true,
