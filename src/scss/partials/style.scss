@@ -8,17 +8,21 @@
 @import "vendors/bootstrap";
 @import "vendors/bootstrap-theme";
 @import "vendors/slick";
-@import "vendors/arcticmodal-0.3";
+@import "vendors/fancybox";
 
 /*blocks damutek*/
 @import "bloks/header";
 @import "bloks/nav";
 @import "bloks/slider";
-@import "bloks/about";
-@import "bloks/contacts";
+@import "bloks/main";
+@import "bloks/main-catalog";
 @import "bloks/feedback";
 @import "bloks/partners";
 @import "bloks/modal";
 @import "bloks/footer";
-@import "bloks/accept-payment";
 @import "bloks/now";
+@import "bloks/accept-payment";
+@import "bloks/certificates";
+@import "bloks/about-gallery";
+
+
