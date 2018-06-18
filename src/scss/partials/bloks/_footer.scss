@@ -27,6 +27,9 @@
 			margin-right: 0;
 		}
 	}
+	&__p{
+		max-width: 285px;
+	}
 	@include r(992){
 		h4{
 			font-size: 14px;
