@@ -1,4 +1,4 @@
-<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 /** @var array $arParams */
 /** @var array $arResult */
 /** @global CMain $APPLICATION */
@@ -12,23 +12,21 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<div class="row">
-    <div class="about-gallery">
-        <? foreach ($arResult["ITEMS"] as $arItem): ?>
-            <?
-            $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
-            $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
-            ?>
-            <div class="col-lg-6" id="<?= $this->GetEditAreaId($arItem['ID']); ?>">
-                <a class="about-gallery__item" data-fancybox="gallery" href="<?= $arItem["PREVIEW_PICTURE"]["SRC"] ?>">
-                    <img src="<?= $arItem["PREVIEW_PICTURE"]["SRC"] ?>"
-                         width="<?= $arItem["PREVIEW_PICTURE"]["WIDTH"] ?>"
-                         height="<?= $arItem["PREVIEW_PICTURE"]["HEIGHT"] ?>"
-                         alt="<?= $arItem["PREVIEW_PICTURE"]["ALT"] ?>"
-                         title="<?= $arItem["PREVIEW_PICTURE"]["TITLE"] ?>">
-                </a>
+<div class="partners">
+    <h2>НАШИ ПАРТНЕРЫ</h2>
+    <div class="container">
+        <div class="row">
+            <div class="partners__inner js-partners">
+                <?foreach($arResult["ITEMS"] as $arItem):?>
+                    <?
+                    $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
+                    $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
+                    ?>
+                    <a href="<?=$arItem[DISPLAY_PROPERTIES][LINK][VALUE]?>" target="_blank" class="partners__item" id="<?=$this->GetEditAreaId($arItem['ID']);?>"><img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" alt="<?=$arItem["PREVIEW_PICTURE"]["ALT"]?>" width="<?=$arItem["PREVIEW_PICTURE"]["WIDTH"]?>"
+                                                                                                    height="<?=$arItem["PREVIEW_PICTURE"]["HEIGHT"]?>"></a>
+                <?endforeach;?>
             </div>
-
-        <? endforeach; ?>
+        </div>
     </div>
+
 </div>
