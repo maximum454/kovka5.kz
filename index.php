@@ -11,119 +11,32 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-
-if (!$arResult["NavShowAlways"])
-{
-    if (0 == $arResult["NavRecordCount"] || (1 == $arResult["NavPageCount"] && false == $arResult["NavShowAll"]))
-        return;
-}
-if ('' != $arResult["NavTitle"])
-    $arResult["NavTitle"] .= ' ';
-
-$strSelectPath = $arResult['sUrlPathParams'].($arResult["bSavePage"] ? '&PAGEN_'.$arResult["NavNum"].'='.(true !== $arResult["bDescPageNumbering"] ? 1 : '').'&' : '').'SHOWALL_'.$arResult["NavNum"].'=0&SIZEN_'.$arResult["NavNum"].'=';
-
 ?>
-<div class="paginator">
-    <?if ($arResult["NavShowAll"]){?>
-        <a href="<?=$arResult['sUrlPathParams']; ?>SHOWALL_<?=$arResult["NavNum"]?>=0&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>"  class="paginator__nav-left"><?=GetMessage('nav_show_pages');?><</a>
-    <?}else{?>
-        <?if (true === $arResult["bDescPageNumbering"]){?>
-            <?if ($arResult["NavPageNomer"] < $arResult["NavPageCount"]){?>
-                <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]+1)?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<? echo GetMessage('nav_prev_title'); ?>" rel="prev"></a>
-            <?}else{?>
-                <span class="paginator__nav-left"><</span>
-            <?}?>
-            <?$NavRecordGroup = $arResult["NavPageCount"];
-            while ($NavRecordGroup >= 1){
-                $NavRecordGroupPrint = $arResult["NavPageCount"] - $NavRecordGroup + 1;
-                $strTitle = GetMessage(
-                    'nav_page_num_title',
-                    array('#NUM#' => $NavRecordGroupPrint)
-                );?>
-                <?if ($NavRecordGroup == $arResult["NavPageNomer"]){?>
-                    <span class="paginator__nav-num act" title="<? echo GetMessage('nav_page_current_title'); ?>"><?=$NavRecordGroupPrint; ?></span>
-                <?}elseif ($NavRecordGroup == $arResult["NavPageCount"] && $arResult["bSavePage"] == false){?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=$strTitle; ?>" class="paginator__nav-num"><?=$NavRecordGroupPrint?></a>
-                <?}else{?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=$NavRecordGroup?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=$strTitle; ?>" class="paginator__nav-num"><?=$NavRecordGroupPrint?></a>
-                <?}?>
-                <?if (1 == ($arResult["NavPageCount"] - $NavRecordGroup) && 2 < ($arResult["NavPageCount"] - $arResult["nStartPage"])){
-                    $middlePage = floor(($arResult["nStartPage"] + $NavRecordGroup)/2);
-                    $NavRecordGroupPrint = $arResult["NavPageCount"] - $middlePage + 1;
-                    $strTitle = GetMessage(
-                        'nav_page_num_title',
-                        array('#NUM#' => $NavRecordGroupPrint)
-                    );?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=$middlePage?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=$strTitle;?>" class="paginator__nav-num">...</a>
-                    <?$NavRecordGroup = $arResult["nStartPage"];?>
-                <?}elseif ($NavRecordGroup == $arResult["nEndPage"] && 3 < $arResult["nEndPage"]){
-                    $middlePage = ceil(($arResult["nEndPage"] + 2)/2);
-                    $NavRecordGroupPrint = $arResult["NavPageCount"] - $middlePage + 1;
-                    $strTitle = GetMessage(
-                        'nav_page_num_title',
-                        array('#NUM#' => $NavRecordGroupPrint)
-                    );?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=$middlePage?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?$strTitle;?>" >...</a>
-                    <?$NavRecordGroup = 2;?>
-                <?}else{?>
-                    <?$NavRecordGroup--;?>
-                <?}
-            }?>
-
-            <?if ($arResult["NavPageNomer"] > 1){?>
-                <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]+1)?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=GetMessage('nav_next_title'); ?>" class="paginator__nav-right">></a>
-            <?}else{?>
-                <span class="paginator__nav-right">></span>
-            <?}?>
-
-        <?}else{?>
-
-            <?if (1 < $arResult["NavPageNomer"]){?>
-                <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]-1)?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=GetMessage('nav_prev_title'); ?>" class="paginator__nav-left"><</a>
-            <?}else{?>
-                <span class="paginator__nav-left"><</span>
-            <?}?>
-
-            <?$NavRecordGroup = 1;
-            while($NavRecordGroup <= $arResult["NavPageCount"]){
-                $strTitle = GetMessage(
-                    'nav_page_num_title',
-                    array('#NUM#' => $NavRecordGroup)
-                );
-                if ($NavRecordGroup == $arResult["NavPageNomer"]){?>
-                    <span class="paginator__nav-num act" title="<? echo GetMessage('nav_page_current_title'); ?>">
-							<?=$NavRecordGroup; ?>
-						</span>
-                <?}elseif ($NavRecordGroup == 1 && $arResult["bSavePage"] == false){?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=$strTitle;?>" class="paginator__nav-num"><?=$NavRecordGroup?></a>
-                <?}else{?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=$NavRecordGroup?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<? echo $strTitle; ?>" class="paginator__nav-num"><?=$NavRecordGroup?></a>
-                <?}
-
-                if ($NavRecordGroup == 2 && $arResult["nStartPage"] > 3 && $arResult["nStartPage"] - $NavRecordGroup > 1){
-                    $middlePage = ceil(($arResult["nStartPage"] + $NavRecordGroup)/2);
-                    $strTitle = GetMessage('nav_page_num_title',array('#NUM#' => $middlePage));?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=$middlePage?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=$strTitle;?>" class="paginator__nav-num">...</a>
-                    <?$NavRecordGroup = $arResult["nStartPage"];
-                }elseif ($NavRecordGroup == $arResult["nEndPage"] && $arResult["nEndPage"] < ($arResult["NavPageCount"] - 2)){
-                    $middlePage = floor(($arResult["NavPageCount"] + $arResult["nEndPage"] - 1)/2);
-                    $strTitle = GetMessage('nav_page_num_title',array('#NUM#' => $middlePage)
-                    );?>
-                    <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=$middlePage?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<? echo $strTitle; ?>" class="paginator__nav-num">...</a>
+<section class="now">
+    <h2>ПОСЛЕДНИЕ НОВИНКИ КАТАЛОГА</h2>
+    <div class="container">
+        <div class="row">
+            <div class="now__inner js-now">
+                <?foreach($arResult["ITEMS"] as $arItem):?>
                     <?
-                    $NavRecordGroup = $arResult["NavPageCount"]-1;
-                }else{
-                    $NavRecordGroup++;
-                }
-            }?>
-            <?if ($arResult["NavPageNomer"] < $arResult["NavPageCount"]){?>
-                <a href="<?=$arResult['sUrlPathParams']; ?>PAGEN_<?=$arResult["NavNum"]?>=<?=($arResult["NavPageNomer"]+1)?>&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult['NavPageSize']; ?>" title="<?=GetMessage('nav_next_title'); ?>" class="paginator__nav-right">> </a>
-            <?}else{?>
-                <span  class="paginator__nav-right">> </span>
-            <?}?>
-            <?if ($arResult["bShowAll"]){?>
-                <a href="<?=$arResult['sUrlPathParams']; ?>SHOWALL_<?=$arResult["NavNum"]?>=1&SIZEN_<?=$arResult["NavNum"]?>=<?=$arResult["NavPageSize"]?>" class="paginator__nav-num"><?=GetMessage('nav_all'); ?></a>
-            <?}
-        }?>
-    <?}?>
-</div>
+                    $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
+                    $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
+                    ?>
+                    <a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="now__item" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
+                        <div class="now__img">
+                            <img
+                                src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>"
+                                alt="<?=$arItem["PREVIEW_PICTURE"]["ALT"]?>"
+                                title="<?=$arItem["PREVIEW_PICTURE"]["TITLE"]?>"
+                            />
+                        </div>
+                        <div class="now__txt">
+                            <div class="now__name"><?echo $arItem["NAME"]?></div>
+                            <button class="now__btn">Просмотреть</button>
+                        </div>
+                    </a>
+                <?endforeach;?>
+            </div>
+        </div>
+    </div>
+</section>
